@@ -1,6 +1,0 @@
-local push = {
-	defaults = {
-		fullscreen = false,
-		a
-	}
-}

@@ -28,6 +28,22 @@ WINDOW_HEIGHT = 720
 	Runs when the game first starts up, only once; ised to initialize the game
 ]]
 
+--[[
+	love.load()
+	- Used to initialized our game state at the very beginning of program execution.
+
+	love.update(dt)
+	- Called each frame by LOVE; dt will be the lapsed time in seconds since the last frame, and we can use this to scale any changes in our game
+	for even behaviour across frame rates.
+
+	love.draw()
+	- Called each frame by LOVE after update for drawing things to the screen once they've changed.
+
+	-- LOVE2D expects these functions to be implemented in main.lua and calls them internally; if we don't
+	define them, it will still function, but our game will be fundamentally incomplete, at least if update or draw are
+	missing!
+]]
+
 function love.load()
 	love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT, {
 	fullscreen = false,
@@ -36,6 +52,15 @@ function love.load()
 })
 end
 
+--[[
+	love.graphics.printf(text, x, y, [width], [align])
+	- Versatile print function that can align text left, right, or center on the screen.
+
+	love.window.setMode(width, height, params)
+	- Used to initialize the window's dimenstions and to set parameters like vsync, whether we're fullscreen or not,
+	and whether the window is resizable after startup. Won't be using past this example in favor of the push virtual resolution library,
+	which has its own method like this, but useful to know if encountered in other code.
+]]
 function love.draw()
 	love.graphics.printf(
 		'Hello Pong!',  		--text to render

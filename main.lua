@@ -65,6 +65,19 @@ function love.load()
 end
 
 --[[
+	Keyboard hangling, called by LOVE2D each frame;
+	passes in the key we pressed so we can access.
+]]
+
+function love.keypressed(key)
+	--keys can be accessed by string name 
+	if key == 'escape' then
+		--function LOVE gives us to terminate application
+		love.event.quit()
+	end
+end
+
+--[[
 	love.graphics.printf(text, x, y, [width], [align])
 	- Versatile print function that can align text left, right, or center on the screen.
 

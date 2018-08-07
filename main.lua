@@ -51,9 +51,18 @@ function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
     -- more "retro-looking" font object we can use for any text
+	-- love.graphics.newFont(path, size)
+	-- Loads a font file into memory at a specific path, setting 
+	-- it to a specific size, and storing it in an object we can 
+	-- use to globally change the currently active font that LOVE2D
+	-- is using to render text (functioning like a state machine)
     smallFont = love.graphics.newFont('font.ttf', 8)
 
     -- set LÖVE2D's active font to the smallFont obect
+	-- love.graphics.setFont(font)
+	-- Sets LOVE2D's currently active font (of which there can only
+	-- be one at a time) to a passed-in-font obhect that we can create
+	-- using love.graphics.newFont.
     love.graphics.setFont(smallFont)
 
     -- initialize window with virtual resolution
@@ -92,6 +101,9 @@ function love.draw()
 
 	-- clear the screen with a specific colorl in this case, a color similar
 	-- to some versions of the original Pong
+	-- love.graphics.clear(r, g, b, a)
+	-- Wipes entire screen with a color defined by a RGBA set, each component
+	-- of which being from 0 to  255
 	love.graphics.clear(40, 45, 52, 255)
 
 	--draw welcome text toward the top of the screen
@@ -103,6 +115,14 @@ function love.draw()
 	--
 
 	-- render first paddle (left side)
+	-- love.graphics.rectangle(mode, x, y, width, height)
+	-- Draws a rectangle onto the screen using whichever our active color is
+	-- (love.graphics.setColor, which we don't need to use in this particular
+	-- project since most everything is white, the default LOVE2D color). mode
+	-- can be set to 'fill' or 'line', which result in a filled or outlined 
+	-- rectangle, respectively, and the other four parameters are its position 
+	-- and size dimensions. This is the cornerstone drawing function of the 
+	-- entirety of our Pong implementation!
 	love.graphics.rectangle('fill', 10, 30, 5, 20)
 
 	-- render second paddle (right side)

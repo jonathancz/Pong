@@ -7,7 +7,7 @@
 
     -- Main Program --
 
-    Author: Colton Ogden
+    Author: Ethan Chen
     cogden@cs50.harvard.edu
 
     Originally programmed by Atari in 1972. Features two
@@ -65,7 +65,7 @@ function love.load()
 end
 
 --[[
-	Keyboard hangling, called by LOVE2D each frame;
+	Keyboard handling, called by LOVE2D each frame;
 	passes in the key we pressed so we can access.
 ]]
 
@@ -87,10 +87,30 @@ end
 	which has its own method like this, but useful to know if encountered in other code.
 ]]
 function love.draw()
-	love.graphics.printf(
-		'Hello Pong!',  		--text to render
-		0,						-- starting X (0 since we're going to center it based on width)
-		WINDOW_HEIGHT / 2 - 6,   -- starting Y (halfway down the screen)
-		WINDOW_WIDTH,
-		'center')
+	-- begin rendering at virtual resolution
+	push:apply('start')
+
+	-- clear the screen with a specific colorl in this case, a color similar
+	-- to some versions of the original Pong
+	love.graphics.clear(40, 45, 52, 255)
+
+	--draw welcome text toward the top of the screen
+	love.graphics.printf('Hello Pong!', 0, 20, VIRTUAL_WIDTH, 'center')
+
+	--
+	-- paddles are simply rectangles we draw on the screen at certain points
+	-- as is the ball
+	--
+
+	-- render first paddle (left side)
+	love.graphics.rectangle('fill', 10, 30, 5, 20)
+
+	-- render second paddle (right side)
+	love.graphics.rectangle('fill', VIRTUAL_WIDTH -10, VIRTUAL_HEIGHT - 50, 5, 20)
+
+	-- render ball (center)
+	love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
+
+	-- end rendering at virtual resolution
+	push:apply('end')
 end

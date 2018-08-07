@@ -48,20 +48,20 @@ VIRTUAL_HEIGHT = 243
 ]]
 
 function love.load()
-	love.graphics.setDefaultFilter('nearest', 'nearest')
+    love.graphics.setDefaultFilter('nearest', 'nearest')
 
-	-- more "retro-looking" font object we can use for any text
-	smallFont = love.graphics.newFont('font.ttf' , 8)
+    -- more "retro-looking" font object we can use for any text
+    smallFont = love.graphics.newFont('font.ttf', 8)
 
-	-- set LOVE2D's active font to the smallFont object
-	love.graphics.setFont(smallFont)
+    -- set LÖVE2D's active font to the smallFont obect
+    love.graphics.setFont(smallFont)
 
-	push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT {
-		fullscreen = false,
-		resizable = false,
-		vsync = true
-	})
-})
+    -- initialize window with virtual resolution
+    push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
+        fullscreen = false,
+        resizable = false,
+        vsync = true
+    })
 end
 
 --[[

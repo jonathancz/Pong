@@ -2,7 +2,6 @@
     GD50 2018
     Pong Remake
 
-    pong-0
     "The Day-0 Update"
 
     -- Main Program --
@@ -20,6 +19,15 @@
     modern systems.
 ]]
 push = require 'push'
+
+-- the "Class" library we're using will aloow us to represent anything in
+-- our game as code, rather than keeping track of many disparate variables
+-- methods
+Class = require 'class'
+
+-- our Paddle Class, which stores position and dimensions for each paddle
+-- and the logic for rendering them
+require 'Paddle'
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720 
@@ -97,22 +105,10 @@ function love.load()
         vsync = true
     })
 
-	-- initialize score variables, used for rendering on the screen and keeping
-    -- track of the winner
-    player1Score = 0
-    player2Score = 0
-
-    -- paddle positions on the Y axis (they can only move up or down)
-    player1Y = 30
-    player2Y = VIRTUAL_HEIGHT - 50
-
-	-- velocity and position variables for our ball when play starts
-	ballX = VIRTUAL_WIDTH / 2 - 2
-	ballY = VIRTUAL_HEIGHT / 2 - 2
-
-	-- math.random returns a random value between the left and right number
-	ballDX = math.random(2) == 1 and 100 or -100
-	ballDY = math.random(-50, 50)
+	--initialize our player paddles; make them global so that they can be
+	-- detected by other functions and modules
+	player1 = Paddle(10, 30, 5, 20)
+	player2 = Paddle(VIRTUAL_WIDTH - 10, VIRTUAL_HEIGHT - 30, 5, 20)
 
 	-- game state variable used to transition between different parts of the game
 	-- (used for beginning, menus, main game, high score list, etc.)
@@ -127,25 +123,20 @@ end
 function love.update(dt)
     -- player 1 movement
     if love.keyboard.isDown('w') then
-        -- add negative paddle speed to current Y scaled by deltaTime
-		-- now, we clamp our position between the bounds of the screen
-		-- math.max returns the greater of two values; 0 and player Y
-		-- will ensure we don't go above it
-        player1Y = math.max(0, player1Y + -PADDLE_SPEED * dt)
+        player1.dy = -PADDLE_SPEED
     elseif love.keyboard.isDown('s') then
-        -- add positive paddle speed to current Y scaled by deltaTime
-		-- math.min returns the lesser of two values; bottom of the edge minus paddle
-		-- and player Y will ensure we don't go below it
-        player1Y = math.min(VIRTUAL_HEIGHT - 20, player1Y + PADDLE_SPEED * dt)
+        player1.dy = PADDLE_SPEED
+	else
+		player1.dy = 0
     end
 
     -- player 2 movement
     if love.keyboard.isDown('up') then
-        -- add negative paddle speed to current Y scaled by deltaTime
-        player2Y = math.max(0, player2Y + -PADDLE_SPEED * dt)
+        player2.dy = -PADDLE_SPEED
     elseif love.keyboard.isDown('down') then
-        -- add positive paddle speed to current Y scaled by deltaTime
-        player2Y = math.min(VIRTUAL_HEIGHT - 20, player2Y + PADDLE_SPEED * dt)
+        player2.dy = PADDLE_SPEED
+    else
+        player2.dy = 0
     end
 
 	-- update our ball based on its DX and DY only if we're in play state;

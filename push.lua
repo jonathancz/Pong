@@ -18,9 +18,6 @@ local push = {
 }
 setmetatable(push, push)
 
---TODO: rendering resolution?
---TODO: clean up code
-
 function push:applySettings(settings)
   for k, v in pairs(settings) do
     self["_" .. k] = v

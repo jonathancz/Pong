@@ -154,28 +154,18 @@ end
 
 function love.keypressed(key)
 	-- keys can be accessed by string name
-    if key == 'escape' then
-        -- function LÖVE gives us to terminate application
-        love.event.quit()
-    -- if we press enter during the start state of the game, we'll go into play mode
-    -- during play mode, the ball will move in a random direction
-    elseif key == 'enter' or key == 'return' then
-        if gameState == 'start' then
-            gameState = 'play'
-		else
-			gameState = 'start'
-
-			-- reinitialize variables
-			-- start ball's position in the middle of the screen
-			ballX = VIRTUAL_WIDTH / 2 - 2
-			ballY = VIRTUAL_HEIGHT / 2 - 2
-
-			-- given ball's x and y velocity a random starting value
-			-- the and/or pattern here is Lua's way of accomplising a ternary operation
-			-- in other programming languages like C
-			ballDX = math.random(2) == 1 and 100 or -100
-			ballDY = math.random(-50, 50) * 1.50
-		end
+	if key == 'escape' then
+		-- function LOVE gives us to terminate application
+		love.event.quit()
+		--if we press enter during the start state of the game, we'll go into play mode
+		-- during play mode. the ball will move in a random direction
+	elseif key == 'enter' or key = 'return' then
+		if gameState == 'start' then
+		gameState = 'play'
+	else
+		gameState = 'start'
+		-- ball's new reset method
+		ball:reset()
 	end
 end
 

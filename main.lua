@@ -2,8 +2,6 @@
     GD50 2018
     Pong Remake
 
-    "The Day-0 Update"
-
     -- Main Program --
 
     Author: Ethan Chen
@@ -108,6 +106,11 @@ function love.load()
         resizable = false,
         vsync = true
     })
+	
+	-- initialize score variables, used for rendering on the screen and keeping
+	-- track of the winner
+	player1Score = 0
+	player2Score = 0
 
 	--initialize our player paddles; make them global so that they can be
 	-- detected by other functions and modules
@@ -132,7 +135,7 @@ function love.update(dt)
         -- detect ball collision with paddles, reversing dx if true and
         -- slightly increasing it, then altering the dy based on the position of collision
         if ball:collides(player1) then
-            ball.dx = -ball.dx * 1.03
+            ball.dx = -ball.dx * 2
             ball.x = player1.x + 5
 
             -- keep velocity going in the same direction, but randomize it
@@ -143,7 +146,7 @@ function love.update(dt)
             end
         end
         if ball:collides(player2) then
-            ball.dx = -ball.dx * 1.03
+            ball.dx = -ball.dx * 2 --Original: 1.03
             ball.x = player2.x - 4
 
             -- keep velocity going in the same direction, but randomize it
